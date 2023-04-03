@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AutomatedGreenhouse</string>
+    <string name="system1">System1</string>
+    <string name="system1_name"></string>
+    <string name="system1_temp">Temp: </string>
+    <string name="system1_tempNum">72</string>
+    <string name="system1_tempNumF">F</string>
+    <string name="system1_humidity">Humidity: </string>
+    <string name="system1_humidityNum">34</string>
+    <string name="system1_humidityPercent">%</string>
+    <string name="module1_name">Lights</string>
+    <string name="module2_name">Fans</string>
+    <string name="module3_name">Irrigation</string>
+    <string name="module4_name">Temp</string>
+    <string name="module5_name">Soil Moisture</string>
+    <string name="module6_name">Irrigation</string>
+    <string name="module7_name">Water Level</string>
+    <string name="module8_name">Live View</string>
+
+</resources>

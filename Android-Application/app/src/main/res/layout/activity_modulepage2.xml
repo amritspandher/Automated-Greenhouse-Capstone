@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage">
+
+    <TableLayout
+        android:id="@+id/page_name"
+        android:textSize="25sp"
+        android:padding="10sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_button_background">
+
+        <TableRow>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:padding="20sp"
+                android:src="@drawable/icons8_back"
+                android:textAlignment="center"
+                android:background="@drawable/green_button_border">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+            <TextView
+                android:text="Modules"
+                android:textSize="30sp"
+                android:padding="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13sp"
+                android:background="@drawable/blue_button_border"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bt_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:padding="20sp"
+                android:src="@drawable/icons8_home"
+                android:textAlignment="center"
+                android:background="@drawable/green_button_border">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+        <TableLayout
+            android:id="@+id/modules"
+            android:padding="10sp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_button_background">
+
+            <TableRow>
+                <TableLayout
+                    android:id="@+id/module5"
+                    android:textSize="25sp"
+                    android:padding="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/blue_button_border">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/module5_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10sp"
+                        android:text="@string/module5_name"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        android:background="@drawable/green_button_border">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <TableRow>
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/module5_get"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:padding="5sp"
+                            android:text="get"
+                            android:textAlignment="center"
+                            android:textSize="20sp"
+                            android:background="@drawable/green_button_border">
+                        </androidx.appcompat.widget.AppCompatButton>
+                        <TextView
+                            android:id="@+id/module5_percentNum"
+                            android:text=""
+                            android:textSize="20sp"
+                            android:padding="2sp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></TextView>
+                        <TextView
+                            android:id="@+id/module5_percentNumUnit"
+                            android:text="%"
+                            android:textSize="20sp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></TextView>
+                    </TableRow>
+
+                </TableLayout>
+
+                <TableLayout
+                    android:id="@+id/module6"
+                    android:textSize="25sp"
+                    android:padding="20sp"
+                    android:layout_margin="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue_button_border">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/module6_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10sp"
+                        android:text="Irrigation"
+                        android:textAlignment="center"
+                        android:textSize="15sp"
+                        android:background="@drawable/green_button_border">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/module6_power"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="10sp"
+                        android:text="off"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:background="@drawable/green_button_border">
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                </TableLayout>
+            </TableRow>
+
+
+            <TableRow>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addSystem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="+"
+                    android:textSize="25sp"
+                    android:layout_margin="20sp"
+                    android:background="@drawable/green_button_border"
+                    >
+
+                </androidx.appcompat.widget.AppCompatButton>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

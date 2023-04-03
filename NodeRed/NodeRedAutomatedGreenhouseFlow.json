@@ -1,0 +1,1307 @@
+[
+    {
+        "id": "387f8b2d1e085cc6",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "44179eec24dc30e2",
+        "type": "inject",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c39d195c8b79a052",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1d382995370a6dab",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "get schedules header sets",
+        "func": "msg.headers = {};\n\nmsg.headers[\"table\"] = \"Schedules\";\nmsg.headers[\"greenhouseID\"] = \"1\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 160,
+        "wires": [
+            [
+                "4ee3a3c2adf06730"
+            ]
+        ]
+    },
+    {
+        "id": "4ee3a3c2adf06730",
+        "type": "http request",
+        "z": "387f8b2d1e085cc6",
+        "name": "GET ALL SCHEDULE ENTRIES",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://eknqepv86f.execute-api.us-east-1.amazonaws.com/database/rds",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "credentials": {},
+        "x": 730,
+        "y": 160,
+        "wires": [
+            [
+                "c39d195c8b79a052",
+                "2f3a6b092baac88c"
+            ]
+        ]
+    },
+    {
+        "id": "2f3a6b092baac88c",
+        "type": "json",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "dbd2effbc5c4e7e3"
+            ]
+        ]
+    },
+    {
+        "id": "dbd2effbc5c4e7e3",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "parse and find module / action => (moduleName action time)",
+        "func": "for (let i = 0; i < msg.payload.length; i++)\n{\n    console.log(\"ModuleID: \" + msg.payload[i].moduleID + \n        \" time: \" + msg.payload[i].time +\n        \" action: \" + msg.payload[i].action);\n\n    var module = msg.payload[i].moduleID;\n    var action = msg.payload[i].action;\n    var time = msg.payload[i].time;\n\n    if (module === '1004')\n    {\n        msg.payload[0] = \"lights \" + action;\n        msg.payload[1] = time;\n    }\n    else if (module === '1003')\n    {\n        msg.payload[0] = \"fans \" + action;\n        msg.payload[1] = time;\n    }\n    else if (module === '1005')\n    {\n        msg.payload[0] = \"irrigation \" + action;\n        msg.payload[1] = time;\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 400,
+        "wires": [
+            [
+                "e1093b8c576da023",
+                "1ab820b8d68a2eb6"
+            ]
+        ]
+    },
+    {
+        "id": "e1093b8c576da023",
+        "type": "switch",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "property": "payload[0]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "lights on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fans on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "irrigation on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "lights off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fans off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "irrigation off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "lights auto",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fans auto",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "irrigation auto",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 9,
+        "x": 610,
+        "y": 400,
+        "wires": [
+            [
+                "7db5fbc295fee6d5"
+            ],
+            [
+                "ee9a685f4eb67d38"
+            ],
+            [
+                "105e5b63037b0e68"
+            ],
+            [
+                "0d4decf64a604dcf"
+            ],
+            [
+                "daf5041c9e7ea793"
+            ],
+            [
+                "39247b39f0abd678"
+            ],
+            [
+                "306ca8a70d8cd847"
+            ],
+            [
+                "4887ada09d88e31f",
+                "b0fe080ccd59b672"
+            ],
+            [
+                "0fd0f1269fbeeb29",
+                "f6d8e9b311cf631d"
+            ]
+        ]
+    },
+    {
+        "id": "7db5fbc295fee6d5",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "on_override",
+        "func": "msg.payload = \"on_override \" + msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 300,
+        "wires": [
+            [
+                "1880557e42f62a14"
+            ]
+        ]
+    },
+    {
+        "id": "0d4decf64a604dcf",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "off_override",
+        "func": "msg.payload = \"off_override \" + msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "1880557e42f62a14"
+            ]
+        ]
+    },
+    {
+        "id": "1880557e42f62a14",
+        "type": "bigtimer",
+        "z": "387f8b2d1e085cc6",
+        "outtopic": "",
+        "outpayload1": "lights on",
+        "outpayload2": "lights off",
+        "name": "Light Timer",
+        "comment": "",
+        "lat": 0,
+        "lon": 0,
+        "starttime": "480",
+        "endtime": "1200",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": 0,
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "lights on",
+        "outtext2": "lights off",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": 0,
+        "month1": 0,
+        "day2": 0,
+        "month2": 0,
+        "day3": 0,
+        "month3": 0,
+        "day4": 0,
+        "month4": 0,
+        "day5": 0,
+        "month5": 0,
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": 0,
+        "xmonth7": 0,
+        "xday8": 0,
+        "xmonth8": 0,
+        "xday9": 0,
+        "xmonth9": 0,
+        "xday10": 0,
+        "xmonth10": 0,
+        "xday11": 0,
+        "xmonth11": 0,
+        "xday12": 0,
+        "xmonth12": 0,
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 1110,
+        "y": 320,
+        "wires": [
+            [
+                "30c9381ff3efe30f",
+                "94d7432c5b9ebf88",
+                "311cfb5b5c442c7a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "30c9381ff3efe30f",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "49a0067ddc57c0ea",
+        "type": "http request",
+        "z": "387f8b2d1e085cc6",
+        "name": "POST REQUEST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://eknqepv86f.execute-api.us-east-1.amazonaws.com/iot/control",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1690,
+        "y": 320,
+        "wires": [
+            [
+                "bd6738f46a1d0a65"
+            ]
+        ]
+    },
+    {
+        "id": "bd6738f46a1d0a65",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1870,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "94d7432c5b9ebf88",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "Lights (Module ID 1004) headers ON",
+        "func": "if (msg.payload === 'lights on')\n{\n    msg.headers = {};\n    msg.headers['moduleid'] = '1004';\n    msg.headers['action'] = 'on';\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 300,
+        "wires": [
+            [
+                "49a0067ddc57c0ea"
+            ]
+        ]
+    },
+    {
+        "id": "311cfb5b5c442c7a",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "Lights (Module ID 1004) headers OFF",
+        "func": "if (msg.payload === 'lights off') \n{\n    msg.headers = {};\n    msg.headers['moduleid'] = '1004';\n    msg.headers['action'] = 'off';\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 340,
+        "wires": [
+            [
+                "49a0067ddc57c0ea"
+            ]
+        ]
+    },
+    {
+        "id": "ee9a685f4eb67d38",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "on_override",
+        "func": "msg.payload = \"on_override \" + msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 420,
+        "wires": [
+            [
+                "58ce6cda039325b6"
+            ]
+        ]
+    },
+    {
+        "id": "daf5041c9e7ea793",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "off_override",
+        "func": "msg.payload = \"off_override \" + msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 460,
+        "wires": [
+            [
+                "58ce6cda039325b6"
+            ]
+        ]
+    },
+    {
+        "id": "58ce6cda039325b6",
+        "type": "bigtimer",
+        "z": "387f8b2d1e085cc6",
+        "outtopic": "",
+        "outpayload1": "fans on",
+        "outpayload2": "fans off",
+        "name": "Fans Timer",
+        "comment": "",
+        "lat": 0,
+        "lon": 0,
+        "starttime": "0",
+        "endtime": "0",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": 0,
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "fans on",
+        "outtext2": "fans off",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": 0,
+        "month1": 0,
+        "day2": 0,
+        "month2": 0,
+        "day3": 0,
+        "month3": 0,
+        "day4": 0,
+        "month4": 0,
+        "day5": 0,
+        "month5": 0,
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": 0,
+        "xmonth7": 0,
+        "xday8": 0,
+        "xmonth8": 0,
+        "xday9": 0,
+        "xmonth9": 0,
+        "xday10": 0,
+        "xmonth10": 0,
+        "xday11": 0,
+        "xmonth11": 0,
+        "xday12": 0,
+        "xmonth12": 0,
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 1110,
+        "y": 440,
+        "wires": [
+            [
+                "98c277bb4b5cddf1",
+                "0d65bc6168c5a9c8",
+                "3a77e832bb3c8696"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "98c277bb4b5cddf1",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f85bb6c01e4a1bb5",
+        "type": "http request",
+        "z": "387f8b2d1e085cc6",
+        "name": "POST REQUEST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://eknqepv86f.execute-api.us-east-1.amazonaws.com/iot/control",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1690,
+        "y": 440,
+        "wires": [
+            [
+                "2bc05f17b874eac2"
+            ]
+        ]
+    },
+    {
+        "id": "2bc05f17b874eac2",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1870,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "105e5b63037b0e68",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "on_override",
+        "func": "msg.payload = \"on_override \" + msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 540,
+        "wires": [
+            [
+                "cf755e8aa08f8d14"
+            ]
+        ]
+    },
+    {
+        "id": "39247b39f0abd678",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "off_override",
+        "func": "msg.payload = \"off_override \" + msg.payload[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 580,
+        "wires": [
+            [
+                "cf755e8aa08f8d14"
+            ]
+        ]
+    },
+    {
+        "id": "cf755e8aa08f8d14",
+        "type": "bigtimer",
+        "z": "387f8b2d1e085cc6",
+        "outtopic": "",
+        "outpayload1": "irrigation on",
+        "outpayload2": "irrigation off",
+        "name": "Irrigation Timer",
+        "comment": "",
+        "lat": 0,
+        "lon": 0,
+        "starttime": "480",
+        "endtime": "480",
+        "starttime2": 0,
+        "endtime2": 0,
+        "startoff": 0,
+        "endoff": "1",
+        "startoff2": 0,
+        "endoff2": 0,
+        "offs": 0,
+        "outtext1": "irrigation on",
+        "outtext2": "irrigation off",
+        "timeout": 1440,
+        "sun": true,
+        "mon": true,
+        "tue": true,
+        "wed": true,
+        "thu": true,
+        "fri": true,
+        "sat": true,
+        "jan": true,
+        "feb": true,
+        "mar": true,
+        "apr": true,
+        "may": true,
+        "jun": true,
+        "jul": true,
+        "aug": true,
+        "sep": true,
+        "oct": true,
+        "nov": true,
+        "dec": true,
+        "day1": 0,
+        "month1": 0,
+        "day2": 0,
+        "month2": 0,
+        "day3": 0,
+        "month3": 0,
+        "day4": 0,
+        "month4": 0,
+        "day5": 0,
+        "month5": 0,
+        "day6": 0,
+        "month6": 0,
+        "day7": 0,
+        "month7": 0,
+        "day8": 0,
+        "month8": 0,
+        "day9": 0,
+        "month9": 0,
+        "day10": 0,
+        "month10": 0,
+        "day11": 0,
+        "month11": 0,
+        "day12": 0,
+        "month12": 0,
+        "d1": 0,
+        "w1": 0,
+        "d2": 0,
+        "w2": 0,
+        "d3": 0,
+        "w3": 0,
+        "d4": 0,
+        "w4": 0,
+        "d5": 0,
+        "w5": 0,
+        "d6": 0,
+        "w6": 0,
+        "xday1": 0,
+        "xmonth1": 0,
+        "xday2": 0,
+        "xmonth2": 0,
+        "xday3": 0,
+        "xmonth3": 0,
+        "xday4": 0,
+        "xmonth4": 0,
+        "xday5": 0,
+        "xmonth5": 0,
+        "xday6": 0,
+        "xmonth6": 0,
+        "xday7": 0,
+        "xmonth7": 0,
+        "xday8": 0,
+        "xmonth8": 0,
+        "xday9": 0,
+        "xmonth9": 0,
+        "xday10": 0,
+        "xmonth10": 0,
+        "xday11": 0,
+        "xmonth11": 0,
+        "xday12": 0,
+        "xmonth12": 0,
+        "xd1": 0,
+        "xw1": 0,
+        "xd2": 0,
+        "xw2": 0,
+        "xd3": 0,
+        "xw3": 0,
+        "xd4": 0,
+        "xw4": 0,
+        "xd5": 0,
+        "xw5": 0,
+        "xd6": 0,
+        "xw6": 0,
+        "suspend": false,
+        "random": false,
+        "randon1": false,
+        "randoff1": false,
+        "randon2": false,
+        "randoff2": false,
+        "repeat": true,
+        "atstart": true,
+        "odd": false,
+        "even": false,
+        "x": 1120,
+        "y": 560,
+        "wires": [
+            [
+                "e9e233cbb67f9898",
+                "e783145a2c184b2f",
+                "2aa30b2615a8af63"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "e9e233cbb67f9898",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1270,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "3f17762d9b1cd072",
+        "type": "http request",
+        "z": "387f8b2d1e085cc6",
+        "name": "POST REQUEST",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://eknqepv86f.execute-api.us-east-1.amazonaws.com/iot/control",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 1690,
+        "y": 560,
+        "wires": [
+            [
+                "bbb64c4286d9996f"
+            ]
+        ]
+    },
+    {
+        "id": "bbb64c4286d9996f",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1870,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "0d65bc6168c5a9c8",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "Fans (Module ID 1003) headers ON",
+        "func": "if (msg.payload === 'fans on') \n{\n    msg.headers = {};\n    msg.headers['moduleid'] = '1003';\n    msg.headers['action'] = 'on';\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1400,
+        "y": 420,
+        "wires": [
+            [
+                "f85bb6c01e4a1bb5"
+            ]
+        ]
+    },
+    {
+        "id": "3a77e832bb3c8696",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "Fans (Module ID 1003) headers OFF",
+        "func": "if (msg.payload === 'fans off') \n{\n    msg.headers = {};\n    msg.headers['moduleid'] = '1003';\n    msg.headers['action'] = 'off';\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 460,
+        "wires": [
+            [
+                "f85bb6c01e4a1bb5"
+            ]
+        ]
+    },
+    {
+        "id": "e783145a2c184b2f",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "Irrigation (Module ID 1005) headers ON",
+        "func": "if (msg.payload === 'irrigation on') \n{\n    msg.headers = {};\n    msg.headers['moduleid'] = '1005';\n    msg.headers['action'] = 'on';\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 540,
+        "wires": [
+            [
+                "3f17762d9b1cd072"
+            ]
+        ]
+    },
+    {
+        "id": "2aa30b2615a8af63",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "Irrigation (Module ID 1005) headers OFF",
+        "func": "if (msg.payload === 'irrigation off') \n{\n    msg.headers = {};\n    msg.headers['moduleid'] = '1005';\n    msg.headers['action'] = 'off';\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 580,
+        "wires": [
+            [
+                "3f17762d9b1cd072"
+            ]
+        ]
+    },
+    {
+        "id": "1ab820b8d68a2eb6",
+        "type": "debug",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "434930fc8502dd6e",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "get temperature header sets",
+        "func": "msg.headers = {};\n\nmsg.headers[\"moduleid\"] = \"1002\";\nmsg.headers[\"measurename\"] = \"temperature\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 560,
+        "wires": [
+            [
+                "7349c52500c8eced"
+            ]
+        ]
+    },
+    {
+        "id": "7af9754356cc2a6b",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "get soilMoisture header sets",
+        "func": "msg.headers = {};\n\nmsg.headers[\"moduleid\"] = \"2001\";\nmsg.headers[\"measurename\"] = \"soilMoisture\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 700,
+        "wires": [
+            [
+                "6f0aa11718222b5e"
+            ]
+        ]
+    },
+    {
+        "id": "7349c52500c8eced",
+        "type": "http request",
+        "z": "387f8b2d1e085cc6",
+        "name": "GET TEMPERATURE NOW",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://eknqepv86f.execute-api.us-east-1.amazonaws.com/database/timestream",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "credentials": {
+            "user": "",
+            "password": ""
+        },
+        "x": 440,
+        "y": 600,
+        "wires": [
+            [
+                "8ae5d6c08dfb66b6"
+            ]
+        ]
+    },
+    {
+        "id": "6f0aa11718222b5e",
+        "type": "http request",
+        "z": "387f8b2d1e085cc6",
+        "name": "GET SOILMOISTURE NOW",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://eknqepv86f.execute-api.us-east-1.amazonaws.com/database/timestream",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "credentials": {
+            "user": "",
+            "password": ""
+        },
+        "x": 440,
+        "y": 740,
+        "wires": [
+            [
+                "93c04b685c12c3f5"
+            ]
+        ]
+    },
+    {
+        "id": "8ae5d6c08dfb66b6",
+        "type": "switch",
+        "z": "387f8b2d1e085cc6",
+        "name": "above 80 then fans ON, below 60 then fans OFF",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "75",
+                "vt": "str"
+            },
+            {
+                "t": "lte",
+                "v": "65",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 440,
+        "y": 640,
+        "wires": [
+            [
+                "ee9a685f4eb67d38"
+            ],
+            [
+                "daf5041c9e7ea793"
+            ]
+        ]
+    },
+    {
+        "id": "93c04b685c12c3f5",
+        "type": "switch",
+        "z": "387f8b2d1e085cc6",
+        "name": "above 40 then irrigation OFF, below 20 then irrigation ON",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "40",
+                "vt": "str"
+            },
+            {
+                "t": "lte",
+                "v": "20",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 780,
+        "wires": [
+            [
+                "39247b39f0abd678"
+            ],
+            [
+                "105e5b63037b0e68"
+            ]
+        ]
+    },
+    {
+        "id": "306ca8a70d8cd847",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "void override",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 380,
+        "wires": [
+            [
+                "1880557e42f62a14"
+            ]
+        ]
+    },
+    {
+        "id": "4887ada09d88e31f",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "void override",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 500,
+        "wires": [
+            [
+                "58ce6cda039325b6"
+            ]
+        ]
+    },
+    {
+        "id": "0fd0f1269fbeeb29",
+        "type": "function",
+        "z": "387f8b2d1e085cc6",
+        "name": "void override",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 620,
+        "wires": [
+            [
+                "cf755e8aa08f8d14"
+            ]
+        ]
+    },
+    {
+        "id": "b0fe080ccd59b672",
+        "type": "delay",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 120,
+        "y": 520,
+        "wires": [
+            [
+                "434930fc8502dd6e"
+            ]
+        ]
+    },
+    {
+        "id": "f6d8e9b311cf631d",
+        "type": "delay",
+        "z": "387f8b2d1e085cc6",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "7af9754356cc2a6b"
+            ]
+        ]
+    }
+]

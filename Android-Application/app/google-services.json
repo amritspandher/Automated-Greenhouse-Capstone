@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "854280895607",
+    "project_id": "automatedgreenhouse-64896",
+    "storage_bucket": "automatedgreenhouse-64896.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854280895607:android:97ebfe0da63f3f3b0c9a72",
+        "android_client_info": {
+          "package_name": "com.example.automatedgreenhouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854280895607-m7c79o8nmtio8iuk0nv8mrk1offtpabp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-uMUT9-sVZICoRty3iq7Vz4isDLweeDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854280895607-m7c79o8nmtio8iuk0nv8mrk1offtpabp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

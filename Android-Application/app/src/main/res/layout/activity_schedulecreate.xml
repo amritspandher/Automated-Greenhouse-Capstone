@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SchedulePageCreate">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/timeAdd"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/blue_button_border"
+        android:hint="Time | ex) 15:20"
+        android:inputType="text"
+        android:padding="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/timeAdd_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_userpass_background"></com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/actionAdd"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/blue_button_border"
+        android:hint="Action | ex) off, on"
+        android:inputType="text"
+        android:padding="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/actionAdd_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_userpass_background"></com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TableLayout
+        android:id="@+id/buttons"
+        android:textSize="25sp"
+        android:padding="10sp"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <TableRow>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="20sp"
+                android:src="@drawable/icons8_back"
+                android:background="@drawable/green_button_border">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/addSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20sp"
+                android:background="@drawable/green_button_border"
+                android:src="@drawable/icons8_add_new_30"
+                android:textAllCaps="false"
+                android:textSize="25sp">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

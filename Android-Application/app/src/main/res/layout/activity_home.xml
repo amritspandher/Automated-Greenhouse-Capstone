@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage">
+
+    <TextView
+        android:text="My Systems"
+        android:textSize="40sp"
+        android:padding="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_button_border"/>
+
+    <TableLayout
+        android:id="@+id/system1"
+        android:text="@string/system1"
+        android:textSize="25sp"
+        android:padding="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_button_border">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/system1_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:text="@string/system1_name"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:background="@drawable/green_button_border">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/system1_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/login_userpass_background"
+                android:padding="5sp"
+                android:text="@string/system1_temp"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system1_tempNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+            <TextView
+                android:id="@+id/system1_tempNumF"
+                android:text="@string/system1_tempNumF"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+
+            <TextView
+                android:id="@+id/system1_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/login_userpass_background"
+                android:padding="5sp"
+                android:text="@string/system1_humidity"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system1_humidityNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+            <TextView
+                android:id="@+id/system1_humidityPercent"
+                android:text="@string/system1_humidityPercent"
+                android:textSize="25sp"
+                android:layout_marginRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+        </TableRow>
+
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/system2"
+        android:text="@string/system1"
+        android:textSize="25sp"
+        android:padding="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_button_border">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/system2_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:text="@string/system1_name"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:background="@drawable/green_button_border">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/system2_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/login_userpass_background"
+                android:padding="5sp"
+                android:text="Soil Moisture:"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system2_humidityNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+            <TextView
+                android:id="@+id/system2_humidityPercent"
+                android:text="@string/system1_humidityPercent"
+                android:textSize="25sp"
+                android:layout_marginRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+        </TableRow>
+
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/system3"
+        android:text="@string/system1"
+        android:textSize="25sp"
+        android:padding="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_button_border">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/system3_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:text="@string/system1_name"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:background="@drawable/green_button_border">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/system3_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/login_userpass_background"
+                android:padding="5sp"
+                android:text="@string/system1_temp"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system3_tempNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+            <TextView
+                android:id="@+id/system3_tempNumF"
+                android:text="@string/system1_tempNumF"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+
+            <TextView
+                android:id="@+id/system3_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/login_userpass_background"
+                android:padding="5sp"
+                android:text="@string/system1_humidity"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system3_humidityNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+            <TextView
+                android:id="@+id/system3_humidityPercent"
+                android:text="@string/system1_humidityPercent"
+                android:textSize="25sp"
+                android:layout_marginRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_userpass_background"></TextView>
+        </TableRow>
+
+
+    </TableLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addSystem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="+"
+        android:textSize="25sp"
+        android:layout_margin="20sp"
+        android:background="@drawable/green_button_border"
+        >
+
+    </androidx.appcompat.widget.AppCompatButton>
+</LinearLayout>

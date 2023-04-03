@@ -1,0 +1,108 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:id="@+id/page_name2"
+        android:textSize="25sp"
+        android:padding="5sp"
+        android:layout_marginBottom="8sp"
+        android:layout_marginTop="-40sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_button_background">
+
+        <TableRow>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bt_backAnalytics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:padding="20sp"
+                android:src="@drawable/icons8_back"
+                android:textAlignment="center"
+                android:background="@drawable/grafana_button_border">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+            <TextView
+                android:text="Analytics"
+                android:textSize="30sp"
+                android:padding="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13sp"
+                android:background="@drawable/blue_button_border"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/bt_homeAnalytics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:padding="20sp"
+                android:src="@drawable/icons8_home"
+                android:textAlignment="center"
+                android:background="@drawable/grafana_button_border">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+        </TableRow>
+    </TableLayout>
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+
+        <TableRow>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/humidityGrafana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/grafana_button_border"
+                android:padding="20sp"
+                android:src="@drawable/icons8_humidity_64_to_100"
+                android:textAlignment="center"
+                android:textSize="25sp"></androidx.appcompat.widget.AppCompatImageButton>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/soilMoistureGrafana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/grafana_button_border"
+                android:padding="20sp"
+                android:src="@drawable/icons8_watering_64_to_100"
+                android:textAlignment="center"
+                android:textSize="25sp"></androidx.appcompat.widget.AppCompatImageButton>
+        </TableRow>
+        <TableRow>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/temperatureGrafana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/grafana_button_border"
+                android:padding="20sp"
+                android:src="@drawable/icons8_temperature_64_to_100"
+                android:textAlignment="center"
+                android:textSize="25sp"></androidx.appcompat.widget.AppCompatImageButton>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/combinedGrafana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@drawable/grafana_button_border"
+                android:padding="20sp"
+                android:src="@drawable/icons8_stats_47_to_100"
+                android:textAlignment="center"
+                android:textSize="25sp"></androidx.appcompat.widget.AppCompatImageButton>
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

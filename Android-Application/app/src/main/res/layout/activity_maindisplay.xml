@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage"
+    >
+
+    <TextView
+        android:id="@+id/systemName"
+        android:text=""
+        android:textSize="40sp"
+        android:padding="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_button_border"/>
+
+    <TableLayout
+        android:id="@+id/system1"
+        android:textSize="25sp"
+        android:padding="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/green_button_border">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/system1_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:text="Detailed Stats"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:background="@drawable/green_button_border">
+        </androidx.appcompat.widget.AppCompatButton>
+
+        <TableRow
+            android:id="@+id/tempRow">
+
+            <TextView
+                android:id="@+id/system1_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:padding="5sp"
+                android:text="@string/system1_temp"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system1_tempNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:id="@+id/system1_tempNumF"
+                android:text="@string/system1_tempNumF"
+                android:textSize="25sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/system1_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:padding="5sp"
+                android:text="@string/system1_humidity"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:id="@+id/system1_humidityNum"
+                android:text=""
+                android:textSize="25sp"
+                android:padding="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"></TextView>
+            <TextView
+                android:id="@+id/system1_humidityPercent"
+                android:text="@string/system1_humidityPercent"
+                android:textSize="25sp"
+                android:layout_marginRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+        </TableRow>
+
+
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp">
+        <TableRow>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/modules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:padding="20sp"
+            android:src="@drawable/icons8_module_100"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:background="@drawable/green_button_border">
+        </androidx.appcompat.widget.AppCompatImageButton>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/schedules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:padding="20sp"
+            android:src="@drawable/icons8_calendar_48_to_100"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:background="@drawable/green_button_border">
+        </androidx.appcompat.widget.AppCompatImageButton>
+        </TableRow>
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/stats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:padding="20sp"
+                android:src="@drawable/icons8_stats_47_to_100"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:background="@drawable/green_button_border">
+            </androidx.appcompat.widget.AppCompatImageButton>
+    </TableLayout>
+
+
+
+</LinearLayout>
